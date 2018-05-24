@@ -1,0 +1,390 @@
+/**********************************************
+*** GENERAL
+**********************************************/
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(62, 20, 20, 0.2)), to(rgba(62, 20, 20, 0.2))), url(img/back-purple.jpg);
+    background-image: linear-gradient(rgba(62, 20, 20, 0.2), rgba(62, 20, 20, 0.2)), url(img/back-purple.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: Lato;
+    font-weight: 300;
+    position: relative;
+    height: 100vh;
+    color: #555;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.blackout {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0);
+    -webkit-transition: background 0.4s;
+    transition: background 0.4s;
+}
+
+
+#game-wrapper,
+#settings-wrapper {
+    height:700px;
+    width: 1000px;
+    position: absolute;
+    top: 120px;
+    left: 16%;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    -webkit-transition: opacity 0.4s, visibility 0.4s;
+    transition: opacity 0.4s, visibility 0.4s;
+    
+}
+
+#settings-wrapper {
+    top: 10px;
+    padding-top: 30px;
+    height: 900px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.player-0-panel,
+.player-1-panel {
+    width: 50%;
+    float: left;
+    height: 700px;
+    padding: 100px;
+}
+
+
+
+/**********************************************
+*** GAME SCREEN
+**********************************************/
+
+.player-name {
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 100;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.player-score {
+    text-align: center;
+    font-size: 90px;
+    font-weight: 100;
+    color: #a80bc4;
+    margin-top: 100px;
+    margin-bottom: 130px;
+}
+
+.active { background-color: #f7f7f7; }
+.active .player-name { font-weight: 300; }
+
+.active .player0::after {
+    content: "\2022";
+    font-size: 47px;
+    position: absolute;
+    color: #a80bc4;
+    top: -7px;
+    right: 10px;   
+}
+
+.active .player1::before {
+    content: "\2022";
+    font-size: 47px;
+    color: #a80bc4;
+    position: absolute;
+    top: -7px;
+    left: 10px;
+}
+
+
+.player-current-box {
+    background-color: #a80bc4;
+    color: #fff;
+    width: 40%;
+    margin: 0 auto;
+    padding: 12px;
+    text-align: center;
+}
+
+.player-current-label {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #222;
+}
+
+.player-current-score {
+    font-size: 30px;
+}
+
+.btn {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    color: #555;
+    background: none;
+    border: none;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    -webkit-transition: background-color 0.3s, color 0.3s, opacity 0.3s, visibility 0.3s;
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s, visibility 0.3s;
+}
+
+.btn:hover { font-weight: 600; }
+.btn:hover i { margin-right: 20px; }
+
+.btn-settings:hover i {
+    margin-right: 15px;
+    -webkit-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+i {
+    color: #a80bc4;
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 32px;
+    line-height: 1;
+    vertical-align: text-top;
+    margin-top: -4px;
+    -webkit-transition: margin 0.3s, -webkit-transform 0.6s;
+    transition: margin 0.3s, -webkit-transform 0.6s;
+    transition: margin 0.3s, transform 0.6s;
+    transition: margin 0.3s, transform 0.6s, -webkit-transform 0.6s;
+}
+
+.btn-settings i{
+    font-size: 32px;
+}
+
+.btn-new { top: 45px;}
+.btn-roll { top: 503px;}
+.btn-hold { top: 567px;}
+.btn-settings {
+    top: 25px;
+    left: 5%;
+}
+
+.dice {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 100px;
+    -webkit-box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.2);
+}
+
+.dice1 {
+    top: 178px;
+}
+
+.dice2 {
+    top: 338px;
+}
+
+.winner { background-color: #f7f7f7; }
+.winner .player-name { font-weight: 300; color: #a80bc4; }
+
+/**********************************************
+*** SETTINGS
+**********************************************/
+
+.settings {
+    margin: 30px 40px 30px 40px;
+}
+
+.settings h1{
+    text-align: center;
+    
+}
+
+.settings h1:after {
+    content: " ";
+    display: block;
+    border-bottom: 5px solid #a80bc4;
+    margin: 10px 0 40px 0;
+}
+
+.settings p {
+    font-size: 110%;
+}
+
+.btn-back {
+    top: 25px;
+    left: 8%;
+}
+
+.card-btn {
+    background: none;
+    border: none;
+    -webkit-transition: -webkit-box-shadow 0.3s;
+    transition: -webkit-box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.card-btn:hover {
+    -webkit-box-shadow: 3px 3px 20px;
+    box-shadow: 3px 3px 20px;
+}
+
+.card-btn:focus {
+    outline: none;
+}
+
+/*---------------------------POINTS-----------------------------*/
+
+.points-threshold {
+    width: 75%;
+    margin: 0px auto 0 auto;
+    text-align: center;
+}
+
+.points-threshold input{
+    margin-top: 20px;
+}
+
+.points-threshold input[type=number] {
+    width: 100px;
+    -moz-appearance: textfield;
+    border: 2px solid #aaa;
+}
+
+.points-threshold input[type=number]::-webkit-inner-spin-button, 
+.points threshold input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.points-threshold input[type=number]:focus {
+    border: 2px solid #a80bc4;
+}
+
+.points-threshold input[type=submit] {
+    background: none;
+    border: none;
+    padding: 5px 10px 5px 10px;
+    margin-left: 20px;
+    border-radius: 20px;
+    font-family: Lato;
+    font-weight: 300;
+    -webkit-transition: color 0.3s, background-color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
+    cursor: pointer;
+}
+
+.points-threshold input[type=submit]:hover, 
+.points-threshold input[type=submit]:active {
+    font-weight: 600;
+    color: #fff;
+    background-color: #a80bc4;
+}
+
+.points-threshold input[type=submit]:active {
+    color: #a80bc4;
+}
+
+
+.points-threshold input[type=submit]:focus {
+    outline: none;
+}
+
+
+/*---------------------------THEMES-----------------------------*/
+
+.theme-settings {
+    margin-top: 0px;
+}
+
+.theme {
+    width: 25%;
+    float: left;
+    text-align: center;
+}
+
+.theme img {
+    height: 120px;
+    display: block;
+}
+
+.theme .card-btn {
+    height: 120px;
+    margin: 10px auto 50px auto;
+}
+
+/*---------------------------VARIANTS-----------------------------*/
+
+.variant {
+    width: 50%;
+    float: left;
+}
+
+.dice-setting {
+    position: relative;
+    height: 75px;
+    display: inline-block;
+    margin-top: 50px;
+}
+
+.dice-setting-1 {
+    left: 35%;
+}
+
+.dice-setting-2 {
+    left: 45%;
+}
+
+.variant p{
+    line-height: 145%;
+    margin: 30px 40px 0 40px;
+}
+
+.variant-settings .card-btn {
+    height: 250px;
+}
+
+.btn-onedice {
+    top: 610px;
+    left: 27%;
+}
+
+.btn-twodice {
+    top: 610px;
+    left: 72%;
+}
